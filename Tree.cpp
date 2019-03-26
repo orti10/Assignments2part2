@@ -4,8 +4,10 @@
  * @author Ortal and Tomer
  *
  * http://www.cplusplus.com/forum/beginner/118562/
+ * https://stackoverflow.com/questions/31715769/c-delete-a-node-from-binary-search-tree
  */
 #include <iostream>
+#include <stdexcept>
 #include "Tree.hpp"
 using namespace ariel;
 using namespace std;
@@ -47,40 +49,69 @@ void Tree::insert(int i) {
 	++sizeOf;
 }
 
-Node* Tree::minNodeValue(Node *n){
-    Node *temp=n;
-    
-    while(temp->getLeft()!=nullptr){
-         minNodeValue(temp->getLeft());
-    }
-    return temp;
-}
+Node* Tree::maxNodeValue(Node *n){
+    if(n==NULL)
+    return NULL;
 
-void Tree::remove(int i) {
-	if(!contains(i)){
-	     throw runtime_error("there is no such key");
-	}
-	else{
-	    Node *n=treeRoot;
-	    while(n!=nullptr){
-	        if(i>n->getKey()){
-	            n=n->getRight();
-	        }
-	        else if(i<n->getKey()){
-	            n=n->getLeft();
-	        }
-	        else{
-	            if(n->getLeft()==nullptr){
-	                Node *temp=n->getRight();
-	                
-	            }
-	        }
-	    }
-	        
-	}
-	    
-	}
+    while(n->getRight() != NULL)
+    {
+        n = n->getRight();
+    }
+    return n;
 }
+Node* Tree::_remove(Node* n ,int data){
+	if(n==NULL) return n;
+    else if(data<=n->getKey()) 
+        n->setLeft( _remove(n->getLeft(), data));
+    else if (data> n->getKey())
+        n->setRight( _remove(n->getRight(), data)) ;
+    else
+    {
+        //No child
+        if(n->getRight() == NULL && n->getLeft() == NULL)
+        {
+            delete n;
+            n = NULL;   
+        }
+        //One child 
+        else if(n->getRight() == NULL)
+        {
+            Node* temp = n;
+            n= n->getLeft();
+            delete temp;
+        }
+        else if(n->getLeft() == NULL)
+        {
+            Node* temp = n;
+            n= n->getRight();
+            delete temp;
+        }
+        //two child
+        else
+        {
+            Node* temp = maxNodeValue(n->getLeft());
+            n->setKey(temp->getKey()) ;
+            n->setLeft(_remove(n->getLeft(), temp->getKey()));
+        }
+    }
+    return n;
+}
+void Tree::remove(int i) {
+	// if tree is empty - throw exeption
+    if (!treeRoot) {
+        throw runtime_error("Tree is empty");
+    }
+    // if tree doesn't contains value - throw exeption
+    else if(!contains(i)){
+        throw invalid_argument(" not found");
+    }
+    // else call recursive remove method
+    else {
+        _remove(treeRoot, i);
+        sizeOf--;
+    }
+	}	    
+
 
 int Tree::size() {
 	return sizeOf;
@@ -140,7 +171,7 @@ int Tree::parent(int i) {
 	    }
 	}
   }
-  return NULL;
+  return 0;
 }
 
 
@@ -148,8 +179,10 @@ int Tree::left(int i) {
 	if(!contains(i)){
 	   throw runtime_error("there no such key");
 	}
-	Node *n=treeRoot;
-	else{
+	
+	else {
+		Node *n=treeRoot;
+
 	    while(n!=nullptr){
 	        if(i==n->getKey()){
 	            if(n->getLeft()==nullptr){
@@ -160,18 +193,20 @@ int Tree::left(int i) {
 	        else if(i>n->getKey()){
 	            n=n->getRight();
 	        }
-	        else
+	        else{
 	        n=n->getLeft();
+			}
         }
     }
-    return NULL;
+    return 0;
 }
 int Tree::right(int i) {
 	if(!contains(i)){
 	   throw runtime_error("there no such key");
 	}
-	Node *n=treeRoot;
 	else{
+		Node *n=treeRoot;
+
 	    while(n!=nullptr){
 	        if(i==n->getKey()){
 	            if(n->getRight()==nullptr){
@@ -186,7 +221,7 @@ int Tree::right(int i) {
 	        n=n->getLeft();
         }
     }
-    return NULL;
+    return 0;
 }
 //Inorder print LVR
 void Tree::printInOrder(Node *n) {
