@@ -5,9 +5,10 @@
 */
 #include <iostream>
 namespace ariel
-{
-	using namespace std;
 
+{
+    
+using namespace std;
 
 	class Node {
 	private:
@@ -16,6 +17,7 @@ namespace ariel
 		Node *right;
 
 	public:
+	  
 		Node(int data) {
 			key = data;
 		}
@@ -51,10 +53,11 @@ namespace ariel
 		void insert(int i);
 	    void deleteTree(Node *n);
 		void remove(int i);
-		Node minNodeValue(Node *n);
+		Node* minNodeValue(Node *n);
 		int size();
 		bool contains(int i);
 		int root();
+		bool isempty();
 		int parent(int i);
 		int left(int i);
 		int right(int i);

@@ -11,7 +11,7 @@ using namespace ariel;
 using namespace std;
 
 Tree::Tree() {
-    treeRoot=new Node() ;
+    treeRoot=nullptr;
     sizeOf=0;
 }
 Tree::~Tree() {
@@ -47,7 +47,7 @@ void Tree::insert(int i) {
 	++sizeOf;
 }
 
-Node Tree::minNodeValue(Node *n){
+Node* Tree::minNodeValue(Node *n){
     Node *temp=n;
     
     while(temp->getLeft()!=nullptr){
@@ -57,7 +57,7 @@ Node Tree::minNodeValue(Node *n){
 }
 
 void Tree::remove(int i) {
-	if(!contains()){
+	if(!contains(i)){
 	     throw runtime_error("there is no such key");
 	}
 	else{
@@ -110,6 +110,12 @@ int Tree::root() {
     return treeRoot->getKey();
     }
     throw runtime_error("the tree is empty");
+}
+bool Tree::isempty(){
+    if(treeRoot==nullptr){
+        return true;
+    }
+    return false;
 }
 
 int Tree::parent(int i) {
@@ -197,6 +203,3 @@ void Tree::print() {
    printInOrder(treeRoot);
 	
 }
-// int main{
-//     cout <<"D" << endl;
-// }
