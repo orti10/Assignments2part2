@@ -60,7 +60,9 @@ Node* Tree::maxNodeValue(Node *n){
     return n;
 }
 Node* Tree::_remove(Node* n ,int data){
-	if(n==NULL) return n;
+	if(n==NULL) {
+	return n;
+	}
     else if(data<=n->getKey()) 
         n->setLeft( _remove(n->getLeft(), data));
     else if (data> n->getKey())

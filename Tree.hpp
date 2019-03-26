@@ -10,6 +10,7 @@ namespace ariel
     
 using namespace std;
 
+	
 	class Node {
 	private:
 		int key;
