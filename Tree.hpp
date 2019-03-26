@@ -33,10 +33,10 @@ using namespace std;
 		Node *getLeft() {
 			return left;
 		}
-		void *setRight(Node *node) {
+		void setRight(Node *node) {
 			this->right = node;
 		}
-		void *setLeft(Node *node) {
+		void setLeft(Node *node) {
 			this->left = node;
 		}
 
