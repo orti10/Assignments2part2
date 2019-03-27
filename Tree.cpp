@@ -28,28 +28,45 @@ void Tree::deleteTree(Node *n){
     }
 }
 
+
 void Tree::insert(int i) {
-	Node *n;
+	
+    if (contains(i)){
+	 throw runtime_error("the value already exist");
+	}
+	 Node *n = new Node(i);
+	 
 	 if(treeRoot==nullptr){
-	    treeRoot=new Node(i);
+	    treeRoot=n;
 	}
 	else{
-	    n =new Node(i);
-	    n=treeRoot;
+	    Node *cur =treeRoot;
+            //bool flag = true;
+            int data;
 	    while(n!=nullptr){
-	        if(i>n->getKey()){
-	            n=n->getRight();
-	        }
-	    else if(i<n->getKey()){
-	        n=n->getLeft();
+	        if(i>cur->getKey()){
+			if(cur->getRight()!=nullptr){	            
+			cur=cur->getRight();
+			}
+	        
+	    else {
+	        cur->setRight(n);
 	    }
+	}
 	    else{
-	        throw runtime_error("the value already exist");
+	        if(cur->getLeft()!=nullptr){
+			cur=cur->getLeft();
+	    	}
+		else{
+			 cur->setLeft(n);
+		}
+
 	    }
 	  }
-	  n=new Node(i);  
 	}
-	++sizeOf;
+
+	
+	sizeOf++;
 }
 
 Node* Tree::maxNodeValue(Node *n){
@@ -118,3 +135,132 @@ void Tree::remove(int i) {
     else {
         _remove(treeRoot, i);
         if(sizeOf>0)sizeOf--;
+    }
+	}	    
+
+
+int Tree::size() {
+	return sizeOf;
+}
+
+bool Tree::contains(int i) {
+    if(treeRoot==nullptr){
+        return false;
+    }
+    Node *n=treeRoot;
+    while (n!=nullptr){
+      if(i>n->getKey()){
+	            n=n->getRight();
+	        }
+	    else if(i<n->getKey()){
+	        n=n->getLeft();
+	    }
+	    else {
+	        return true;
+	    }  
+    }
+    return false;
+}
+
+int Tree::root() {
+    if(treeRoot!=nullptr){
+    return treeRoot->getKey();
+    }
+    throw runtime_error("the tree is empty");
+}
+bool Tree::isempty(){
+    if(treeRoot==nullptr){
+        return true;
+    }
+    return false;
+}
+
+int Tree::parent(int i) {
+	if((!contains(i)) && (i==treeRoot->getKey())){
+	    throw runtime_error("there no such key");
+	}
+	
+	else{
+	    Node *n=treeRoot;
+	    while(1){
+	    if(i>n->getKey()){
+	        if(n->getRight()->getKey()==i){
+	            return n->getKey();
+	        }
+	        else n=n->getRight();
+	    }
+	    else {
+	        if(n->getLeft()->getKey()==i){
+	            return n->getKey();
+	        }
+	        else n=n->getLeft();
+	    }
+	}
+  }
+  return 0;
+}
+
+
+int Tree::left(int i) {
+	if(!contains(i)){
+	   throw runtime_error("there no such key");
+	}
+	
+	else {
+		Node *n=treeRoot;
+
+	    while(n!=nullptr){
+	        if(i==n->getKey()){
+	            if(n->getLeft()==nullptr){
+	                throw runtime_error("there no such key");
+	            }
+	            else return n->getLeft()->getKey();
+	        }
+	        else if(i>n->getKey()){
+	            n=n->getRight();
+	        }
+	        else{
+	        n=n->getLeft();
+			}
+        }
+    }
+    return 0;
+}
+int Tree::right(int i) {
+	if(!contains(i)){
+	   throw runtime_error("there no such key");
+	}
+	else{
+		Node *n=treeRoot;
+
+	    while(n!=nullptr){
+	        if(i==n->getKey()){
+	            if(n->getRight()==nullptr){
+	                throw runtime_error("there no such key");
+	            }
+	            else return n->getRight()->getKey();
+	        }
+	        else if(i>n->getKey()){
+	            n=n->getRight();
+	        }
+	        else
+	        n=n->getLeft();
+        }
+    }
+    return 0;
+}
+//Inorder print LVR
+void Tree::printInOrder(Node *n) {
+    if(n==nullptr) return;
+
+	printInOrder(n->getLeft());
+	cout<<n->getKey()<<" ";
+	printInOrder(n->getRight());
+
+}
+
+
+void Tree::print() {
+   printInOrder(treeRoot);
+	
+}
