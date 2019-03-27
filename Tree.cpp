@@ -41,9 +41,9 @@ void Tree::insert(int i) {
 	}
 	else{
 	    Node *cur =treeRoot;
-            //bool flag = true;
             int data;
-	    while(n!=nullptr){
+			bool flag=true;
+	    while(flag){
 	        if(i>cur->getKey()){
 			if(cur->getRight()!=nullptr){	            
 			cur=cur->getRight();
@@ -51,6 +51,7 @@ void Tree::insert(int i) {
 	        
 	    else {
 	        cur->setRight(n);
+			flag=false;
 	    }
 	}
 	    else{
@@ -59,6 +60,7 @@ void Tree::insert(int i) {
 	    	}
 		else{
 			 cur->setLeft(n);
+			 flag=false;
 		}
 
 	    }
