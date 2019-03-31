@@ -36,10 +36,11 @@ void Tree::insert(int i) {
     if (contains(i)){ //preventig duplication
 	 throw runtime_error("the value already exist");
 	}
-	 Node *n = new Node(i);
+	 Node *n;
 	 
 	 if(treeRoot==nullptr){ //the tree is empty then the node become the root
-	    treeRoot=n;
+	   	n=new Node(i);
+		 treeRoot=n;
 	}
 	else{	//there is a root
 	    Node *cur =treeRoot;
