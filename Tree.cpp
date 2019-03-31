@@ -118,7 +118,8 @@ if(n==NULL){
         //No child
         if(n->getRight() == NULL && n->getLeft() == NULL)
         {
-            delete n;
+           delete temp;
+	   delete n;
             n = nullptr;   
         }
         //One child (left) 
