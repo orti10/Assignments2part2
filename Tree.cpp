@@ -12,7 +12,6 @@
 #include "Tree.hpp"
 using namespace ariel;
 using namespace std;
-Node::~Node(){}
 //construcrtor
 Tree::Tree() {
     treeRoot=nullptr;
