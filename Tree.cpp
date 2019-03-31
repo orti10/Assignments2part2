@@ -12,16 +12,17 @@
 #include "Tree.hpp"
 using namespace ariel;
 using namespace std;
+
 //construcrtor
 Tree::Tree() {
     treeRoot=nullptr;
     sizeOf=0;
 }
-//destrucrtor
+//distrucrtor
 Tree::~Tree() {
     deleteTree(treeRoot);
 }
-//destrucrtor extension
+//distrucrtor extension
 void Tree::deleteTree(Node *n){
     if(n!=NULL){
         deleteTree(n->getLeft());
@@ -40,39 +41,34 @@ void Tree::insert(int i) {
 	 
 	 if(treeRoot==nullptr){ //the tree is empty then the node become the root
 		treeRoot=new Node(i);	    
-		//treeRoot=n;
 
 	}
 	else{	//there is a root
-		 Node *n;
 	    Node *cur =treeRoot;
-        int data;
-		bool flag=true; 
+      	    int data;
+	    bool flag=true; 
 	    while(flag){ //while we haven't reached a null pointer
 	    
-			if(i>cur->getKey()){	 //checks is i belongs to the right subtree
-				if(cur->getRight()!=nullptr){	            
-				cur=cur->getRight();
-				}
+		 if(i>cur->getKey()){	 //checks is i belongs to the right subtree
+			if(cur->getRight()!=nullptr){	            
+		 		cur=cur->getRight();
+			  }
 	        
-	    	else { //we reached a null pointer
-				n=new Node(i);	        		
-				cur->setRight(n);
+	    		   else { //we reached a null pointer
+				cur=new Node(i);				
 				flag=false;
-	    	}
-		}
-	    	else{ //i belongs to the left subtree
+	    	           }
+		        }
+	    		else{ //i belongs to the left subtree
 	        		if(cur->getLeft()!=nullptr){
 					cur=cur->getLeft();
-	    		}
+	    		        }
 				else{//we reached a null pointer
-				n=new Node(i);			 		
-				cur->setLeft(n);
-
+					cur=new Node(i);				
 			 		flag=false;
 				}
 
-	    	}
+	                }
 	    }
 	}
 	sizeOf++; //after inserting a node update its size
