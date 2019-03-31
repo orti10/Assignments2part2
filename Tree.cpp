@@ -12,6 +12,7 @@
 #include "Tree.hpp"
 using namespace ariel;
 using namespace std;
+Node::~Node(){}
 //construcrtor
 Tree::Tree() {
     treeRoot=nullptr;
@@ -36,13 +37,15 @@ void Tree::insert(int i) {
     if (contains(i)){ //preventig duplication
 	 throw runtime_error("the value already exist");
 	}
-	 Node *n;
+
 	 
 	 if(treeRoot==nullptr){ //the tree is empty then the node become the root
-	   	n=new Node(i);
-		 treeRoot=n;
+		treeRoot=new Node(i);	    
+		//treeRoot=n;
+
 	}
 	else{	//there is a root
+		 Node *n;
 	    Node *cur =treeRoot;
         int data;
 		bool flag=true; 
@@ -54,7 +57,8 @@ void Tree::insert(int i) {
 				}
 	        
 	    	else { //we reached a null pointer
-	        		cur->setRight(n);
+				n=new Node(i);	        		
+				cur->setRight(n);
 				flag=false;
 	    	}
 		}
@@ -63,12 +67,14 @@ void Tree::insert(int i) {
 					cur=cur->getLeft();
 	    		}
 				else{//we reached a null pointer
-			 		cur->setLeft(n);
+				n=new Node(i);			 		
+				cur->setLeft(n);
+
 			 		flag=false;
 				}
 
 	    	}
-	  	}
+	    }
 	}
 	sizeOf++; //after inserting a node update its size
 }
