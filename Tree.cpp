@@ -33,7 +33,7 @@ void Tree::deleteTree(Node *n){
 //insert a new node to the tree
 
 void Tree::insert(int i) {
-	
+
     if (contains(i)){ //preventig duplication
 	 throw runtime_error("the value already exist");
 	}
@@ -44,6 +44,7 @@ void Tree::insert(int i) {
 
 	}
 	else{	//there is a root
+	    Node *n=new Node(i);
 	    Node *cur =treeRoot;
       	    int data;
 	    bool flag=true; 
@@ -55,7 +56,7 @@ void Tree::insert(int i) {
 			  }
 	        
 	    		   else { //we reached a null pointer
-				cur=new Node(i);				
+				cur->setRight(n);							
 				flag=false;
 	    	           }
 		        }
@@ -64,7 +65,7 @@ void Tree::insert(int i) {
 					cur=cur->getLeft();
 	    		        }
 				else{//we reached a null pointer
-					cur=new Node(i);				
+					cur->setLeft(n);			
 			 		flag=false;
 				}
 
