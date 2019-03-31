@@ -104,7 +104,9 @@ void Tree::remove(int i) {
 }
 
 
-//this function removes a node	
+/*this function removes a node	
+* https://helloacm.com/how-to-delete-a-node-from-a-binary-search-tree/
+*/
 Node* Tree::_remove(Node* n ,int data){
 
 //temporary node
