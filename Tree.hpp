@@ -19,7 +19,7 @@ using namespace std;
 	public:
 	  
 		Node(int data) {
-			key = data;
+			this->key = data;
 			this->left=nullptr;
 			this->right=nullptr;
 		}

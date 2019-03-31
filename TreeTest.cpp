@@ -58,9 +58,9 @@ int main() {
   .CHECK_EQUAL (threetree.right(5), 7)
   .CHECK_THROWS(threetree.insert(3))
   .CHECK_THROWS(threetree.left(6))
-  .CHECK_OK    (threetree.print())
   
   //mytree test
+  .CHECK_OK    (mytree.print())
   .CHECK_EQUAL (mytree.size(),10)
   .CHECK_EQUAL (mytree.root(),5)
   .CHECK_EQUAL (mytree.contains(2),true)
