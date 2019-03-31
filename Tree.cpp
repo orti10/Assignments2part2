@@ -105,7 +105,10 @@ void Tree::remove(int i) {
 Node* Tree::_remove(Node* n ,int data){
 
 Node *temp=new Node(data);	//temporary node 
-if(n==NULL) return n;
+if(n==NULL){
+ 	throw runtime_error("thers is no data to remove");
+	return n;
+	 }
     else if(data<n->getKey())                     //searching the node in the left subtree
         n->setLeft( _remove(n->getLeft(), data)); 
     else if (data> n->getKey())					  //searching the node in the right subtree
