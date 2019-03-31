@@ -98,17 +98,25 @@ void Tree::remove(int i) {
     // else call recursive remove method
     else {
         _remove(treeRoot, i);
-        if(sizeOf>0)sizeOf--;
+        if(sizeOf>0)sizeOf--; //checks memory leak
     }
 }
 //this function removes a node	
 Node* Tree::_remove(Node* n ,int data){
 
+<<<<<<< HEAD
 //Node *temp=new Node(data);	//temporary node 
 if(n==NULL){
 	  throw runtime_error("There is not i such data to remove");
 	return n;
 }
+=======
+Node *temp=new Node(data);	//temporary node 
+if(n==NULL){
+ 	throw runtime_error("thers is no data to remove");
+	return n;
+	 }
+>>>>>>> 74798a083c60324fdc859c9ba2291d8fb1366231
     else if(data<n->getKey())                     //searching the node in the left subtree
         n->setLeft( _remove(n->getLeft(), data)); 
     else if (data> n->getKey())					  //searching the node in the right subtree
@@ -164,48 +172,50 @@ bool Tree::contains(int i) {
         return false;
     }
     Node *n=treeRoot;
-    while (n!=nullptr){ //keep going till we get to null
+    while (n!=nullptr){ //keep going till we get to null pointer
       if(i>n->getKey()){
 	            n=n->getRight();
 	        }
 	    else if(i<n->getKey()){
 	        n=n->getLeft();
 	    }
-	    else {
+	    else { //found the requested node return true
 	        return true;
 	    }  
     }
     return false;
 }
-
+//return tree root
 int Tree::root() {
     if(treeRoot!=nullptr){
     return treeRoot->getKey();
     }
     throw runtime_error("the tree is empty");
 }
+
+//check if the tree is empty
 bool Tree::isempty(){
     if(treeRoot==nullptr){
         return true;
     }
     return false;
 }
-
+//returns the parent of node i
 int Tree::parent(int i) {
-	if((!contains(i)) && (i==treeRoot->getKey())){
+	if((!contains(i)) && (i==treeRoot->getKey())){ //checks of the node is even in the tree
 	    throw runtime_error("there no such key");
 	}
 	
 	else{
 	    Node *n=treeRoot;
 	    while(1){
-	    if(i>n->getKey()){
+	    if(i>n->getKey()){ //see if i is the right child
 	        if(n->getRight()->getKey()==i){
 	            return n->getKey();
 	        }
 	        else n=n->getRight();
 	    }
-	    else {
+	    else {  //see if i is the left child
 	        if(n->getLeft()->getKey()==i){
 	            return n->getKey();
 	        }
@@ -216,9 +226,9 @@ int Tree::parent(int i) {
   return 0;
 }
 
-
+//returns the left child
 int Tree::left(int i) {
-	if(!contains(i)){
+	if(!contains(i)){	//checks of the node is even in the tree
 	   throw runtime_error("there no such key");
 	}
 	
@@ -227,23 +237,25 @@ int Tree::left(int i) {
 
 	    while(n!=nullptr){
 	        if(i==n->getKey()){
-	            if(n->getLeft()==nullptr){
+	            if(n->getLeft()==nullptr){ //the node dosen't have left child
 	                throw runtime_error("there no such key");
 	            }
-	            else return n->getLeft()->getKey();
+	            else return n->getLeft()->getKey();  //found the node we looked for return his left child
 	        }
-	        else if(i>n->getKey()){
+	        else if(i>n->getKey()){ //i is bigger than the current node look in sub right tree
 	            n=n->getRight();
 	        }
-	        else{
-	        n=n->getLeft();
+	        else{ //i is smaller than the current node look in sub left tree
+	        		n=n->getLeft();
 			}
         }
     }
     return 0;
 }
+
+//returns the right child
 int Tree::right(int i) {
-	if(!contains(i)){
+	if(!contains(i)){	//checks of the node is even in the tree
 	   throw runtime_error("there no such key");
 	}
 	else{
@@ -251,16 +263,16 @@ int Tree::right(int i) {
 
 	    while(n!=nullptr){
 	        if(i==n->getKey()){
-	            if(n->getRight()==nullptr){
+	            if(n->getRight()==nullptr){	//the node dosen't have right child
 	                throw runtime_error("there no such key");
 	            }
-	            else return n->getRight()->getKey();
+	            else return n->getRight()->getKey();  	//found the node we looked for return his right child
 	        }
-	        else if(i>n->getKey()){
+	        else if(i>n->getKey()){ //i is bigger than the current node look in sub right tree
 	            n=n->getRight();
 	        }
-	        else
-	        n=n->getLeft();
+	        else  //i is smaller than the current node look in sub left tree
+	       	 	n=n->getLeft();
         }
     }
     return 0;
@@ -274,7 +286,6 @@ void Tree::printInOrder(Node *n) {
 	printInOrder(n->getRight());
 
 }
-
 
 void Tree::print() {
    printInOrder(treeRoot);
