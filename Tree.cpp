@@ -104,7 +104,9 @@ void Tree::remove(int i) {
 }
 
 
-//this function removes a node	
+/*this function removes a node	
+* https://helloacm.com/how-to-delete-a-node-from-a-binary-search-tree/
+*/
 Node* Tree::_remove(Node* n ,int data){
 
 //temporary node
@@ -190,14 +192,17 @@ bool Tree::isempty(){
     return false;
 }
 
+
+
+
 int Tree::parent(int i) {
-	if((!contains(i)) && (i==treeRoot->getKey())){
+	if((!contains(i)) || (i==treeRoot->getKey()) || treeRoot==nullptr){
 	    throw runtime_error("there no such key");
 	}
 	
 	else{
 	    Node *n=treeRoot;
-	    while(1){
+	    while(n!=NULL){
 	    if(i>n->getKey()){
 	        if(n->getRight()->getKey()==i){
 	            return n->getKey();
@@ -214,7 +219,6 @@ int Tree::parent(int i) {
   }
   return 0;
 }
-
 
 int Tree::left(int i) {
 	if(!contains(i)){
