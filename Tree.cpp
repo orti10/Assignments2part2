@@ -37,13 +37,11 @@ void Tree::insert(int i) {
     if (contains(i)){ //preventig duplication
 	 throw runtime_error("the value already exist");
 	}
-
 	 
 	 if(treeRoot==nullptr){ //the tree is empty then the node become the root
 		treeRoot=new Node(i);	    
-
 	}
-	else{	//there is a root
+	   else{	//there is a root
 	    Node *n=new Node(i);
 	    Node *cur =treeRoot;
       	    int data;
@@ -107,9 +105,9 @@ void Tree::remove(int i) {
 //this function removes a node	
 Node* Tree::_remove(Node* n ,int data){
 
-Node *temp=new Node(data);	//temporary node 
+Node *temp;	//temporary node 
 if(n==NULL){
-	  throw runtime_error("There is not i such data to remove");
+        throw runtime_error("There is not i such data to remove");
 	return n;
 }
     else if(data<n->getKey())                     //searching the node in the left subtree
@@ -121,7 +119,7 @@ if(n==NULL){
         //No child
         if(n->getRight() == NULL && n->getLeft() == NULL)
         {
-	   delete n;
+	    delete n;
             n = nullptr;   
         }
         //One child (left) 
@@ -130,7 +128,6 @@ if(n==NULL){
              
 	    temp=n;
             n= n->getLeft();
-            delete temp;
             temp=nullptr;
         }
 		//one child (right)
@@ -139,20 +136,19 @@ if(n==NULL){
              
 	    temp=n;
             n= n->getRight();
-            delete temp;
             temp=nullptr;
         }
         //two childs
         else
         {
 		//getting the maximum node from left subtree
-	    Node *Maxtempdata=maxNodeValue(n->getLeft());
-            temp = new Node (Maxtempdata->getKey());
+	    //Node *Maxtempdata=maxNodeValue(n->getLeft());
+            temp = maxNodeValue(n->getLeft());
             n->setKey(temp->getKey()) ;
             n->setLeft(_remove(n->getLeft(), temp->getKey()));
         }
     }
-	delete temp;
+
     return n;
 }
     
