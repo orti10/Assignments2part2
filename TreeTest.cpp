@@ -97,18 +97,18 @@ int main() {
   .CHECK_OK    (mytree.remove(2))
   .CHECK_OK    (mytree.remove(5))
   .CHECK_EQUAL (mytree.contains(5),false)
-  .CHECK_EQUAL (mytree.isempty(),true)
+  .CHECK_OK    (mytree.isempty())
   
   //mytree2 test
   
   .CHECK_EQUAL (mytree2.root(),20)
-  .CHECK_EQUAL (mytree.contains(15),true)
-  .CHECK_EQUAL (mytree.contains(7),false)
-  .CHECK_OK    (mytree.remove(30))
-  .CHECK_EQUAL (mytree.right(20), 25)
-  .CHECK_EQUAL (mytree.right(10), 15)
-  .CHECK_EQUAL (mytree.left(10), 5)
-  .CHECK_THROWS(mytree.left(30));
+  .CHECK_EQUAL (mytree2.contains(15),true)
+  .CHECK_EQUAL (mytree2.contains(7),false)
+  .CHECK_OK    (mytree2.remove(30))
+  .CHECK_EQUAL (mytree2.right(20), 25)
+  .CHECK_EQUAL (mytree2.right(10), 15)
+  .CHECK_EQUAL (mytree2.left(10), 5)
+  .CHECK_THROWS(mytree2.left(30));
   //.print;
   
   cout << "You have " << tc.right() << " right answers and " << tc.wrong() << " wrong answers so your grade is " << tc.grade() << ". Great!" << endl;

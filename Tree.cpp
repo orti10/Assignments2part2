@@ -73,7 +73,7 @@ void Tree::insert(int i) {
 
 Node* Tree::maxNodeValue(Node *n){
     if(n==nullptr)
-    return NULL;
+    return nullptr;
 
     while(n->getRight() != NULL)
     {
@@ -83,8 +83,8 @@ Node* Tree::maxNodeValue(Node *n){
 }
 Node* Tree::_remove(Node* n ,int data){
 Node *temp=new Node(data);	
-if(n==NULL) return n;
-    else if(data<=n->getKey()) 
+    if(n==NULL) return n;
+    else if(data< n->getKey()) 
         n->setLeft( _remove(n->getLeft(), data));
     else if (data> n->getKey())
         n->setRight( _remove(n->getRight(), data)) ;
@@ -125,6 +125,7 @@ if(n==NULL) return n;
     return n;
 }
 void Tree::remove(int i) {
+
 	// if tree is empty - throw exeption
     if (!treeRoot) {
         throw runtime_error("Tree is empty");
@@ -171,7 +172,8 @@ int Tree::root() {
     throw runtime_error("the tree is empty");
 }
 bool Tree::isempty(){
-    if(treeRoot==nullptr){
+
+if(treeRoot==nullptr){
         return true;
     }
     return false;
