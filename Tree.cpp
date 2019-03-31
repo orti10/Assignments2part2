@@ -149,6 +149,7 @@ if(n==NULL){
             n->setLeft(_remove(n->getLeft(), temp->getKey()));
         }
     }
+	delete temp;
     return n;
 }
     
