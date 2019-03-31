@@ -192,14 +192,17 @@ bool Tree::isempty(){
     return false;
 }
 
+
+
+
 int Tree::parent(int i) {
-	if((!contains(i)) && (i==treeRoot->getKey())){
+	if((!contains(i)) || (i==treeRoot->getKey()) || treeRoot==nullptr){
 	    throw runtime_error("there no such key");
 	}
 	
 	else{
 	    Node *n=treeRoot;
-	    while(1){
+	    while(n!=NULL){
 	    if(i>n->getKey()){
 	        if(n->getRight()->getKey()==i){
 	            return n->getKey();
@@ -216,7 +219,6 @@ int Tree::parent(int i) {
   }
   return 0;
 }
-
 
 int Tree::left(int i) {
 	if(!contains(i)){
