@@ -10,17 +10,18 @@ namespace ariel
     
 using namespace std;
 
-	
 	class Node {
 	private:
 		int key;
 		Node *left;
 		Node *right;
-
+		
 	public:
 	  
 		Node(int data) {
 			key = data;
+			this->left=nullptr;
+			this->right=nullptr;
 		}
 		int getKey() {
 			return key;
@@ -52,7 +53,7 @@ using namespace std;
 		Tree();
 		~Tree();
 		void insert(int i);
-	    void deleteTree(Node *n);
+       		void deleteTree(Node *n);
 		Node* _remove(Node* n ,int i);
 		void remove(int i);
 		Node* maxNodeValue(Node *n);

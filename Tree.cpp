@@ -12,16 +12,17 @@
 #include "Tree.hpp"
 using namespace ariel;
 using namespace std;
+
 //construcrtor
 Tree::Tree() {
     treeRoot=nullptr;
     sizeOf=0;
 }
-//destrucrtor
+//distrucrtor
 Tree::~Tree() {
     deleteTree(treeRoot);
 }
-//destrucrtor extension
+//distrucrtor extension
 void Tree::deleteTree(Node *n){
     if(n!=NULL){
         deleteTree(n->getLeft());
@@ -32,42 +33,42 @@ void Tree::deleteTree(Node *n){
 //insert a new node to the tree
 
 void Tree::insert(int i) {
-	
+
     if (contains(i)){ //preventig duplication
 	 throw runtime_error("the value already exist");
 	}
-	 Node *n = new Node(i);
 	 
 	 if(treeRoot==nullptr){ //the tree is empty then the node become the root
-	    treeRoot=n;
+		treeRoot=new Node(i);	    
 	}
-	else{	//there is a root
+	   else{	//there is a root
+	    Node *n=new Node(i);
 	    Node *cur =treeRoot;
-        int data;
-		bool flag=true; 
+      	    int data;
+	    bool flag=true; 
 	    while(flag){ //while we haven't reached a null pointer
 	    
-			if(i>cur->getKey()){	 //checks is i belongs to the right subtree
-				if(cur->getRight()!=nullptr){	            
-				cur=cur->getRight();
-				}
+		 if(i>cur->getKey()){	 //checks is i belongs to the right subtree
+			if(cur->getRight()!=nullptr){	            
+		 		cur=cur->getRight();
+			  }
 	        
-	    	else { //we reached a null pointer
-	        		cur->setRight(n);
+	    		   else { //we reached a null pointer
+				cur->setRight(n);							
 				flag=false;
-	    	}
-		}
-	    	else{ //i belongs to the left subtree
+	    	           }
+		        }
+	    		else{ //i belongs to the left subtree
 	        		if(cur->getLeft()!=nullptr){
 					cur=cur->getLeft();
-	    		}
+	    		        }
 				else{//we reached a null pointer
-			 		cur->setLeft(n);
+					cur->setLeft(n);			
 			 		flag=false;
 				}
 
-	    	}
-	  	}
+	                }
+	    }
 	}
 	sizeOf++; //after inserting a node update its size
 }
@@ -101,12 +102,15 @@ void Tree::remove(int i) {
         if(sizeOf>0)sizeOf--;
     }
 }
+
+
 //this function removes a node	
 Node* Tree::_remove(Node* n ,int data){
 
-Node *temp=new Node(data);	//temporary node 
+//temporary node
+Node *temp; 
 if(n==NULL){
-	  throw runtime_error("There is not i such data to remove");
+        throw runtime_error("There is not i such data to remove");
 	return n;
 }
     else if(data<n->getKey())                     //searching the node in the left subtree
@@ -118,40 +122,37 @@ if(n==NULL){
         //No child
         if(n->getRight() == NULL && n->getLeft() == NULL)
         {
-            delete n;
+	    delete n;
             n = nullptr;   
         }
         //One child (left) 
         else if(n->getRight() == NULL)
         {
              
-	    temp=n;
+	    Node *temp=n;
             n= n->getLeft();
-            delete temp;
             temp=nullptr;
         }
 		//one child (right)
         else if(n->getLeft() == NULL)
         {
              
-	    temp=n;
+	    Node *temp=n;
             n= n->getRight();
-            delete temp;
             temp=nullptr;
         }
         //two childs
         else
         {
-		//getting the maximum node from left subtree
-	    Node *Maxtempdata=maxNodeValue(n->getLeft());
-            temp = new Node (Maxtempdata->getKey());
-            n->setKey(temp->getKey()) ;
+	    //getting the maximum node from left subtree
+            Node *temp = maxNodeValue(n->getLeft());
+	    n->setKey(temp->getKey()) ;
             n->setLeft(_remove(n->getLeft(), temp->getKey()));
         }
     }
     return n;
 }
-    
+
 //returns the size of tree
 int Tree::size() {
 	return sizeOf;
