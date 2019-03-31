@@ -104,37 +104,42 @@ void Tree::remove(int i) {
 //this function removes a node	
 Node* Tree::_remove(Node* n ,int data){
 
-Node *temp=new Node(data);	//temporary node 
-if(n==NULL) return n;
+//Node *temp=new Node(data);	//temporary node 
+if(n==NULL){
+	  throw runtime_error("There is not i such data to remove");
+	return n;
+}
     else if(data<n->getKey())                     //searching the node in the left subtree
         n->setLeft( _remove(n->getLeft(), data)); 
     else if (data> n->getKey())					  //searching the node in the right subtree
         n->setRight( _remove(n->getRight(), data));
-    else
+    else 
     {
         //No child
+        if(n-getKey()==data){
         if(n->getRight() == NULL && n->getLeft() == NULL)
         {
             delete n;
             n = nullptr;   
         }
+        }
         //One child (left) 
         else if(n->getRight() == NULL)
         {
              
-	    temp=n;
-            n= n->getLeft();
-            delete temp;
-            temp=nullptr;
+	        Node *temp=n->getLeft();
+            //n= n->getLeft();
+            delete n;
+            n=temp;
         }
 		//one child (right)
         else if(n->getLeft() == NULL)
         {
              
-	    temp=n;
-            n= n->getRight();
-            delete temp;
-            temp=nullptr;
+	    Node *temp=n->getRight();
+            //n= n->getRight();
+            delete n;
+            n=temp;
         }
         //two childs
         else
