@@ -70,6 +70,7 @@ void Tree::insert(int i) {
 	  	}
 	}
 	sizeOf++; //after inserting a node update its size
+	delete n;
 }
 
 /* this function helps to find the maximum node
